@@ -1,11 +1,14 @@
-package rima
+package chipyard
 
 import chisel3._
-import org.chipsalliance.cde.config.{Config, Parameters}
+import org.chipsalliance.cde.config.{Config}
+import freechips.rocketchip.subsystem._
 
-class BaselineConfig extends Config(
-  new boom.v3.common.WithNLargeBooms(2) ++
-  new chipyard.config.WithSystemBusWidth(128) ++
+class CortexA72 extends Config(
+  new boom.v3.common.WithNMegaBooms(4) ++
+  new boom.v3.common.WithBoomCommitLogPrintf ++
+
+  new WithCoherentBusTopology ++
   
   // Shared L2 cache
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
@@ -16,5 +19,5 @@ class BaselineConfig extends Config(
 
 class BaselineGemminiConfig extends Config(
   new gemmini.DefaultGemminiConfig ++ // Add accelerator
-  new BaselineConfig // Reuse everything else
+  new CortexA72 // Reuse everything else
 )
