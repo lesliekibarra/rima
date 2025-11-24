@@ -14,6 +14,15 @@ source env.sh
 ```
 (You should see your terminal prompt change to indicate the environment is active.)
 
+## Add the RIMA Submodule to Chipyard
+
+From the Chipyard root directory, add RIMA as a Git submodule:
+
+```
+cd generators/
+git submodule add https://git-repository.com/yourproject.git
+```
+
 ## Integration with Chipyard
 
 **1. Add the RIMA Project to Chipyard’s SBT Build**
