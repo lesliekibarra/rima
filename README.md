@@ -1,8 +1,9 @@
-# rima
-RISC-V INT8 Matrix Accelerator 
+# RISC-V INT8 Matrix Accelerator
 
-RIMA is a RISC-V INT8 matrix accelerator integrated into the Chipyard framework.  
-This guide explains how to integrate, build, and simulate RIMA configurations within Chipyard.
+RIMA is a RISC-V INT8 matrix accelerator designed for integration within the Chipyard framework.
+
+This guide provides instructions for adding RIMA to Chipyard, configuring the build environment, and running RIMA-enabled simulations.
+
 ---
 
 ## Activate the Chipyard Build Environment
