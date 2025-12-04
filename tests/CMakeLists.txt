@@ -40,9 +40,15 @@ add_custom_target(
 
 message(STATUS "Defined tflm_downloads target")
 
-add_executable(hello_world_test
+add_executable(
+    hello_world_test
     hello_world_test.cpp
     ${TFLITE_MICRO_MODELS_DIR}/hello_world_int8_model_data.cc
+)
+
+add_executable(
+    matmul_test
+    matmul_test.c
 )
 
 message(STATUS "Added hello_world_test executable")
@@ -50,6 +56,13 @@ message(STATUS "Added hello_world_test executable")
 add_dependencies(hello_world_test tflm_downloads)
 
 message(STATUS "Added dependency on tflm_downloads")
+
+target_include_directories(
+    matmul_test PRIVATE
+    ${CHIPYARD_TESTS_DIR}
+)
+
+message(STATUS "Chipyard tests directory: ${CHIPYARD_TESTS_DIR}")
 
 target_include_directories(
     hello_world_test PRIVATE
@@ -72,3 +85,4 @@ message(STATUS "Linked TensorFlow Lite Micro library")
 target_compile_definitions(hello_world_test PRIVATE TF_LITE_USE_GLOBAL_CMATH_FUNCTIONS)
 
 add_dump_target(hello_world_test)
+add_dump_target(matmul_test)
