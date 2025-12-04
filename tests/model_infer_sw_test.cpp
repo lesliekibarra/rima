@@ -47,8 +47,12 @@ float RunSingleInference(float input_value) {
 
 int main(int argc, char* argv[]) {
     printf("Hello World Test\n");
+    
     float test_input = 0.5f;
+
     float prediction = RunSingleInference(test_input);
+    
     printf("Predicted output for %.2f is %.4f\n", test_input, prediction);
+
     return 0;
 }

@@ -41,31 +41,36 @@ add_custom_target(
 message(STATUS "Defined tflm_downloads target")
 
 add_executable(
-    hello_world_test
-    hello_world_test.cpp
+    model_infer_sw_test
+    model_infer_sw_test.cpp
     ${TFLITE_MICRO_MODELS_DIR}/hello_world_int8_model_data.cc
 )
 
 add_executable(
-    matmul_test
-    matmul_test.c
+    matmul_sw_test
+    matmul_sw_test.c
 )
 
-message(STATUS "Added hello_world_test executable")
+add_executable(
+    matmul_rima_test
+    matmul_rima_test.c
+)
 
-add_dependencies(hello_world_test tflm_downloads)
+message(STATUS "Added test executables")
+
+add_dependencies(model_infer_sw_test tflm_downloads)
 
 message(STATUS "Added dependency on tflm_downloads")
 
 target_include_directories(
-    matmul_test PRIVATE
+    matmul_rima_test PRIVATE
     ${CHIPYARD_TESTS_DIR}
 )
 
 message(STATUS "Chipyard tests directory: ${CHIPYARD_TESTS_DIR}")
 
 target_include_directories(
-    hello_world_test PRIVATE
+    model_infer_sw_test PRIVATE
     ${tflite_micro_SOURCE_DIR}
     ${TFLM_TOOLS_MAKE_DIR}/downloads/flatbuffers/include  # Add FlatBuffers include directory
     ${TFLM_TOOLS_MAKE_DIR}/downloads/gemmlowp  # Add gemmlowp include directory
@@ -77,12 +82,13 @@ message(STATUS "Included model directory")
 message(STATUS "tflite_micro_SOURCE_DIR: ${tflite_micro_SOURCE_DIR}")
 
 target_link_libraries(
-    hello_world_test PRIVATE 
+    model_infer_sw_test PRIVATE 
     ${TFLITE_MICRO_LIBS_DIR}/libtensorflow-microlite.a  # Link the static library
 )
 
 message(STATUS "Linked TensorFlow Lite Micro library")
-target_compile_definitions(hello_world_test PRIVATE TF_LITE_USE_GLOBAL_CMATH_FUNCTIONS)
+target_compile_definitions(model_infer_sw_test PRIVATE TF_LITE_USE_GLOBAL_CMATH_FUNCTIONS)
 
-add_dump_target(hello_world_test)
-add_dump_target(matmul_test)
+add_dump_target(model_infer_sw_test)
+add_dump_target(matmul_sw_test)
+add_dump_target(matmul_rima_test)
